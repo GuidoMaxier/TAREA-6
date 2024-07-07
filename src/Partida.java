@@ -2,12 +2,12 @@ public class Partida implements Runnable {
     
     private final Jugador jugador1;
     private final Jugador jugador2;
-    // private final SistemaJuego sistemaJuego;
+    private final SistemaJuego sistemaJuego;
 
-    public Partida(Jugador jugador1, Jugador jugador2/*, SistemaJuego sistemaJuego*/) {
+    public Partida(Jugador jugador1, Jugador jugador2, SistemaJuego sistemaJuego) {
         this.jugador1 = jugador1;
         this.jugador2 = jugador2;
-        // this.sistemaJuego = sistemaJuego;
+        this.sistemaJuego = sistemaJuego;
     }
 
     @Override
