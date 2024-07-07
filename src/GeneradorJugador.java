@@ -24,7 +24,7 @@ public class GeneradorJugador implements Runnable {
             sistemaJuego.agregarJugador(jugador);
 
             //El Jugador [id] (Ranking: [ranking]) se unió a la cola de espera.
-            System.out.println("El Jugador ["+ jugador.getId() +"] (Ranking: [" + jugador.getRanking() +"]) se unió a la cola de espera.");
+            System.out.println("El Jugador [id: "+ jugador.getId() +"] (Ranking: [" + jugador.getRanking() +"]) se unió a la cola de espera.");
 
         }
         sistemaJuego.setGenerandoJugadores(false);

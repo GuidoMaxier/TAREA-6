@@ -19,7 +19,7 @@ public class Partida implements Runnable {
         sistemaJuego.aumentarPartidasActivas();
 
         // 2. Indicar que empezó una partida entre los jugadores correspondientes.
-        System.out.println("Empezó una partida entre " + jugador1.getId() + " y " + jugador2.getId());
+        System.out.println("Empezó una partida entre Jugador [id: " + jugador1.getId() + "] y Jugador [id: " + jugador2.getId() + "].");
         // 3. Simular la partida con una espera de 3 segundos.
         try {
             Thread.sleep(3000);
@@ -35,9 +35,9 @@ public class Partida implements Runnable {
         // 5. Calculamos quién fue el ganador según los resultados.
         String resultado;
         if (puntosJugador1 > puntosJugador2) {
-            resultado = "Jugador [" + jugador1.getId() + "] WINS!"; 
+            resultado = "Jugador [id: " + jugador1.getId() + "] WINS!"; 
         } else if (puntosJugador1 < puntosJugador2) {
-            resultado = "Jugador [" + jugador2.getId() + "] WINS!"; 
+            resultado = "Jugador [id: " + jugador2.getId() + "] WINS!"; 
         } else {
             resultado = "Empate";
         }
@@ -45,7 +45,7 @@ public class Partida implements Runnable {
         // 6. Mostramos el resultado final de la partida con el siguiente formato:
            // a. Resultado de la partida: Jugador [id] + ( puntos ) + vs Jugador [id] + ( 
         // puntos ) – Resultado del cálculo en (5)
-        System.out.println("Resultado de la partida: Jugador [" + jugador1.getId() + "] (" + puntosJugador1 + ") vs Jugador [" + jugador2.getId() + "] (" + puntosJugador2 + ") - " + resultado);
+        System.out.println("\u001B[32m" + "Resultado de la partida: Jugador [id: " + jugador1.getId() + "] (puntos: " + puntosJugador1 + ") vs Jugador [id: " + jugador2.getId() + "] (puntos: " + puntosJugador2 + ") - Resultado: " + resultado + "\u001B[0m");
         
         // 7. Disminuir la cantidad de partidas activas en el sistema.¨
         sistemaJuego.disminuirPartidasActivas();

@@ -10,28 +10,44 @@ public class SistemaJuego implements Runnable {
     private boolean generandoJugadores = true;
     private boolean SistemaEnEjecucion = true;
 
-    public synchronized void agregarJugador(Jugador jugador) {
-        jugadoresEspera.add(jugador);
-    }
-
-    public void revisarEstadoSistema() {
-        if (!generandoJugadores && jugadoresEspera.isEmpty() && partidasActivas == 0) {
-            SistemaEnEjecucion = false;
+    public void agregarJugador(Jugador jugador) {
+        synchronized (monitor) {
+            jugadoresEspera.add(jugador);
+            monitor.notifyAll();
         }
     }
 
+    public void revisarEstadoSistema() {
+        synchronized (monitor) {
+            if (!generandoJugadores && jugadoresEspera.isEmpty() && partidasActivas == 0) {
+                SistemaEnEjecucion = false;
+                monitor.notifyAll();
+            }
+        }
+  
+    }
+
     public synchronized void setGenerandoJugadores(boolean generandoJugadores) {
-        this.generandoJugadores = generandoJugadores;
+        synchronized (monitor) {
+            this.generandoJugadores = generandoJugadores;
+            monitor.notifyAll();
+        }
     }
 
     public synchronized void aumentarPartidasActivas() {
-        partidasActivas++;
-        System.out.println("Partidas activas: " + partidasActivas);
+        synchronized (monitor) {
+            partidasActivas++;
+            System.out.println("Partidas activas: " + partidasActivas);
+            monitor.notifyAll();
+        }
     }
 
     public synchronized void disminuirPartidasActivas() {
-        partidasActivas--;
-        System.out.println("Partidas activas: " + partidasActivas);
+        synchronized (monitor) {
+            partidasActivas--;
+            System.out.println("Partidas activas: " + partidasActivas);
+            monitor.notifyAll();
+        }
     }
 
     private Jugador encontrarPartida(Jugador jugador) {
@@ -55,9 +71,20 @@ public class SistemaJuego implements Runnable {
             Jugador jugador2 = null;
 
             synchronized (monitor) {
+
+                while (jugadoresEspera.size() < 2 && SistemaEnEjecucion) {
+                    try {
+                        monitor.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
                 if (jugadoresEspera.size() >= 2) {
                     jugador1 = jugadoresEspera.get(0);
                     jugador2 = encontrarPartida(jugador1);
+                    
                     if (jugador2 != null) {
                         jugadoresEspera.remove(jugador1);
                         jugadoresEspera.remove(jugador2);

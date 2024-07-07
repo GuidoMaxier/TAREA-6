@@ -11,12 +11,12 @@ public class App {
         hiloGenerador.start();
 
         try {
-            hiloGenerador.join();
+            // hiloGenerador.join();
             hiloEmparejamiento.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("El programa ha finalizado");
+        System.out.println("\u001B[34m" + "El programa ha finalizado.-" + "\u001B[0m");
 
     }
 }
