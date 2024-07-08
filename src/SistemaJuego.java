@@ -27,14 +27,14 @@ public class SistemaJuego implements Runnable {
   
     }
 
-    public synchronized void setGenerandoJugadores(boolean generandoJugadores) {
+    public void setGenerandoJugadores(boolean generandoJugadores) {
         synchronized (monitor) {
             this.generandoJugadores = generandoJugadores;
             monitor.notifyAll();
         }
     }
 
-    public synchronized void aumentarPartidasActivas() {
+    public void aumentarPartidasActivas() {
         synchronized (monitor) {
             partidasActivas++;
             System.out.println("Partidas activas: " + partidasActivas);
@@ -42,7 +42,7 @@ public class SistemaJuego implements Runnable {
         }
     }
 
-    public synchronized void disminuirPartidasActivas() {
+    public void disminuirPartidasActivas() {
         synchronized (monitor) {
             partidasActivas--;
             System.out.println("Partidas activas: " + partidasActivas);
@@ -84,7 +84,7 @@ public class SistemaJuego implements Runnable {
                 if (jugadoresEspera.size() >= 2) {
                     jugador1 = jugadoresEspera.get(0);
                     jugador2 = encontrarPartida(jugador1);
-                    
+
                     if (jugador2 != null) {
                         jugadoresEspera.remove(jugador1);
                         jugadoresEspera.remove(jugador2);
